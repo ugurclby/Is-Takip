@@ -74,7 +74,7 @@ namespace YSKProje.ToDo.Web.Areas.Admin.Controllers
                 });
                 return RedirectToAction("Index");
             }
-            return View(aciliyetUpdateModel);  
+            return View(aciliyetUpdateModel);   
         }
     }
 }
