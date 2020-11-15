@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    string active = TempData["Active"]?.ToString();
+}
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -25,13 +29,13 @@
         <!-- Sidebar -->
         <div class="border-right" id="sidebar-wrapper">
             <div class="sidebar-heading">Admin</div>
-            <div class="list-group list-group-flush">
-                <a href="/Admin/Aciliyet/Index" class="list-group-item list-group-item-action active">Görev İşlemleri</a>
-                <a asp-action="Index" asp-controller="Aciliyet" class="list-group-item list-group-item-action">Aciliyet Listesi</a>
-                <a href="#" class="list-group-item list-group-item-action">Overview</a>
-                <a href="#" class="list-group-item list-group-item-action">Events</a>
-                <a href="#" class="list-group-item list-group-item-action">Profile</a>
-                <a href="#" class="list-group-item list-group-item-action">Status</a>
+            <div id="DV_Liste" class="list-group list-group-flush">
+                <a id="a_GorevIslem" asp-action="Index" asp-controller="Gorev" class="list-group-item list-group-item-action">Görev İşlemleri</a>
+                <a id="a_AciliyetListe" asp-action="Index" asp-controller="Aciliyet" class="list-group-item list-group-item-action">Aciliyet Listesi</a>
+                <a id="a_Dene1" asp-action="Index" asp-controller="Aciliyet" class="list-group-item list-group-item-action">Overview</a>
+                <a id="a_Dene2" asp-action="Index" asp-controller="Aciliyet" class="list-group-item list-group-item-action">Events</a>
+                <a id="a_Dene3" asp-action="Index" asp-controller="Aciliyet" class="list-group-item list-group-item-action">Profile</a>
+                <a id="a_Dene4" asp-action="Index" asp-controller="Aciliyet" class="list-group-item list-group-item-action">Status</a>
             </div>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -40,36 +44,9 @@
 
             <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                 <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
-
-                @*<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Link</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Dropdown
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>*@
             </nav>
 
             <div class="container-fluid">
-
                 @RenderBody()
             </div>
         </div>
@@ -81,12 +58,31 @@
     <script src="~/lib/jquery/jquery.min.js"></script>
     <script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    @RenderSection("JavaScript",false)
+    @RenderSection("JavaScript", false)
     <!-- Menu Toggle Script -->
-    <script>$("#menu-toggle").click(function (e) {
+    <script>
+        $(document).ready(function () {
+        if ('@active' =='Aciliyet') {
+            $("#a_AciliyetListe").addClass("active");
+        } else if ('@active' =='Gorev') {
+            $("#a_GorevIslem").addClass("active");
+        }
+        });
+        $("#menu-toggle").click(function (e) {
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
-        });</script>
+        });
+
+        //$("#DV_Liste a").click(function () {
+        //    var activeList = $(this);
+        //    $("#DV_Liste a").each(function () {
+        //        $(this).removeClass("active");
+        //    });
+        //    $(activeList).addClass("active");
+        //});
+
+
+    </script>
 
 </body>
 

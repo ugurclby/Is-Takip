@@ -16,7 +16,12 @@ namespace YSKProje.ToDo.Web.Controllers
         }
         public IActionResult Index()
         {
+            return View(); 
+        }
+        public IActionResult KayitOl()
+        {
             return View();
         }
+
     }
 }

@@ -12,7 +12,7 @@ namespace YSKProje.ToDo.Entities.Concrete
         public string Ad { get; set; }
         public string Aciklama { get; set; }
         public bool Durum { get; set; }
-        public DateTime OlusturulmaTarih { get; set; }
+        public DateTime OlusturulmaTarih { get; set; } = DateTime.Now;
 
         public int? AppUserId { get; set; }
         public AppUser AppUser { get; set; }
