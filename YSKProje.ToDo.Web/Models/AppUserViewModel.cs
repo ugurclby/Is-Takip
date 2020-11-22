@@ -23,16 +23,16 @@ namespace YSKProje.ToDo.Web.Models
         public string ConfirmPassword { get; set; }
         
         [Display(Name="Email :")]
-        [EmailAddress(ErrorMessage ="Geçersiz Mail")]
-        [Required(ErrorMessage = "Parola Boş Geçilemez")]
+        [EmailAddress(ErrorMessage ="Geçersiz Mail")] 
+        [Required(ErrorMessage = "EMail Boş Geçilemez")]
         public string Email { get; set; }
 
         [Display(Name = "Adınız :")]
-        [Required(ErrorMessage = "Parola Boş Geçilemez")]
+        [Required(ErrorMessage = "Ad Boş Geçilemez")]
         public string Name { get; set; }
 
         [Display(Name = "Soyadınız :")]
-        [Required(ErrorMessage = "Parola Boş Geçilemez")]
+        [Required(ErrorMessage = "Soyad Boş Geçilemez")]
         public string SurName { get; set; } 
     }
 }
