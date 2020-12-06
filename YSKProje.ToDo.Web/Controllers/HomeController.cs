@@ -14,14 +14,43 @@ namespace YSKProje.ToDo.Web.Controllers
     {
         IGorevService _gorevService;
         UserManager<AppUser> _userManager;
-        public HomeController(IGorevService gorevService, UserManager<AppUser> userManager)
+        private readonly SignInManager<AppUser> _signInManager;
+        public HomeController(IGorevService gorevService, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
             _gorevService = gorevService;
             _userManager = userManager;
+            _signInManager = signInManager;
         }
         public IActionResult Index()
         {
             return View(); 
+        }
+
+        public async Task<IActionResult> GirisYap(AppUserSignInModel appUserSignInModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByNameAsync(appUserSignInModel.UserName);
+                if (user !=null)
+                {
+                    var identityResult= await _signInManager.PasswordSignInAsync(appUserSignInModel.UserName, appUserSignInModel.Password, appUserSignInModel.RememberMe, false);
+
+                    if (identityResult.Succeeded)
+                    {
+                        var roles= await _userManager.GetRolesAsync(user);
+                        if (roles.Contains("Admin"))
+                        {
+                            return RedirectToAction("Index", "Home", new { area = "Admin" });
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Home", new { area = "Member" });
+                        }
+                    }
+                }
+                ModelState.AddModelError("", "Kullanıcı Adı Veya Şifreniz Hatalı..!");
+            }
+            return View("Index",appUserSignInModel);
         }
         public IActionResult KayitOl()
         {

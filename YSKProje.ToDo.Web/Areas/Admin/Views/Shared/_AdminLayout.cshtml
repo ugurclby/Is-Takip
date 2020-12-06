@@ -32,7 +32,7 @@
             <div id="DV_Liste" class="list-group list-group-flush">
                 <a id="a_GorevIslem" asp-action="Index" asp-controller="Gorev" class="list-group-item list-group-item-action">Görev İşlemleri</a>
                 <a id="a_AciliyetListe" asp-action="Index" asp-controller="Aciliyet" class="list-group-item list-group-item-action">Aciliyet Listesi</a>
-                <a id="a_Dene1" asp-action="Index" asp-controller="Aciliyet" class="list-group-item list-group-item-action">Overview</a>
+                <a id="a_IsEmri" asp-action="Index" asp-controller="IsEmri" class="list-group-item list-group-item-action">İş Emri</a>
                 <a id="a_Dene2" asp-action="Index" asp-controller="Aciliyet" class="list-group-item list-group-item-action">Events</a>
                 <a id="a_Dene3" asp-action="Index" asp-controller="Aciliyet" class="list-group-item list-group-item-action">Profile</a>
                 <a id="a_Dene4" asp-action="Index" asp-controller="Aciliyet" class="list-group-item list-group-item-action">Status</a>
@@ -60,12 +60,15 @@
 
     @RenderSection("JavaScript", false)
     <!-- Menu Toggle Script -->
-    <script>
+<script>
         $(document).ready(function () {
         if ('@active' =='Aciliyet') {
             $("#a_AciliyetListe").addClass("active");
         } else if ('@active' =='Gorev') {
             $("#a_GorevIslem").addClass("active");
+        }
+        else if ('@active' =='IsEmri') {
+            $("#a_IsEmri").addClass("active");
         }
         });
         $("#menu-toggle").click(function (e) {
@@ -82,7 +85,7 @@
         //});
 
 
-    </script>
+</script>
 
 </body>
 

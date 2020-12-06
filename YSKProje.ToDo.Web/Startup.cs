@@ -22,10 +22,12 @@ namespace YSKProje.ToDo.Web
             services.AddScoped<IGorevService, GorevManager>();
             services.AddScoped<IRaporService, RaporManager>();
             services.AddScoped<IAciliyetService, AciliyetManager>();
+            services.AddScoped<IAppUserService, AppUserManager>();
 
             services.AddScoped<IGorevDal, EfGorevRepository>();
             services.AddScoped<IAciliyetDal, EfAciliyetRepository>();
             services.AddScoped<IRaporDal, EfRaporRepository>();
+            services.AddScoped<IAppUserDal, EfAppUserRepository>();
 
             services.AddDbContext<TodoContext>();
 
@@ -61,7 +63,9 @@ namespace YSKProje.ToDo.Web
 
             app.UseRouting();
             IdentityInitializer.SeedData(userManager, roleManager).Wait();
-            app.UseStaticFiles(); 
+            app.UseStaticFiles();
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

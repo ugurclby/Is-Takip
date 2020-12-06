@@ -15,6 +15,7 @@ namespace YSKProje.ToDo.Entities.Concrete
         public DateTime OlusturulmaTarih { get; set; } = DateTime.Now;
 
         public int? AppUserId { get; set; }
+
         public AppUser AppUser { get; set; }
 
         public int AciliyetId { get; set; }
