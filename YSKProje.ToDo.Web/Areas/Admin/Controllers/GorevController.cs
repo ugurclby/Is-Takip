@@ -42,6 +42,10 @@ namespace YSKProje.ToDo.Web.Areas.Admin.Controllers
             }
             return View(gorevListViewModel);
         }
+        public IActionResult GorevVazgec()
+        {
+            return RedirectToAction("Index");
+        }
         public IActionResult EkleGorev()
         {
             TempData["Active"] = "Gorev";

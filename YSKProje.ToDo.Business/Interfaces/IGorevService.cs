@@ -9,5 +9,8 @@ namespace YSKProje.ToDo.Business.Interfaces
     {
         List<Gorev> GetirAciliyetİleTamamlanmayan();
         List<Gorev> GetirTumTablolarla();
+        Gorev GetirAciliyetileId(int id);
+        List<Gorev> GetirileAppUserId(int userId);
+        Gorev RaporGetirGorevIdile(int gorevId);
     }
 }

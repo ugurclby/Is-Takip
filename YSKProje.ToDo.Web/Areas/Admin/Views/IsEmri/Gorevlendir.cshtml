@@ -1,0 +1,31 @@
+﻿@model GorevListAllViewModel
+@if (Model.Raporlar.Count > 0)
+{
+    <a asp-action="ExcelAktar" asp-route-id="@Model.Id" target="_blank" class="btn btn-primary btn-sm mt-2 float-right"><i class="far fa-file-excel mr-2"></i> Excele Aktar</a>
+    <a asp-action="PdfAktar" asp-route-id="@Model.Id" target="_blank" class="btn btn-primary btn-sm mt-2 float-right mr-2"><i class="far fa-file-pdf mr-2"></i> PDF Aktar</a>
+    <table class="table table-hover table-sm text-center table-bordered mt-1">
+        <tr>
+            <th colspan="2">
+                @Model.AppUser.Name @Model.AppUser.Surname personelinizin @Model.Ad görevi üzerinde yazmış olduğu raporlar.
+            </th>
+        </tr>
+        <tr>
+            <th>Tanım</th>
+            <th>Detay</th>
+        </tr>
+
+        @foreach (var item in Model.Raporlar)
+        {
+            <tr>
+                <td>@item.Tanim</td>
+                <td>@item.Detay</td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <div class="border border-dark mt2 text-center">
+        @Model.AppUser.Name @Model.AppUser.Surname personeliniz şuanda @Model.Ad görevi üzerinde çalışıyor. Henüz bir rapor yazmamış.
+    </div>
+}

@@ -1,7 +1,7 @@
 ﻿@model GorevUpdateModel
 
 <form asp-action="GuncelleGorev" method="post" class="w-75 mx-auto p-3">
-    <input type="hidden" asp-for="@Model.id"/>
+    <input type="hidden" asp-for="@Model.id" />
     <div class="form-group">
         <label>Ad</label>
         <span asp-validation-for="Ad" class="text-danger"></span>
@@ -19,7 +19,8 @@
             <option hidden value="-1">Seçiniz</option>
         </select>
     </div>
-    <button type="submit" class="btn btn-info btn-info">Kaydet</button>
+    <button type="submit" class="btn btn-info btn-sm"><i class="far fa-save mr-2"></i> Kaydet</button>
+    <a class="btn btn-warning btn-sm" asp-action="GorevVazgec"><i class="fas fa-arrow-left mr-2"></i> Vazgeç</a>
 </form>
 @section JavaScript {
     <script src="~/lib/jqueryValidate/jquery.validate.min.js"></script>

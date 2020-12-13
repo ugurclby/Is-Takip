@@ -5,13 +5,14 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 <form asp-action="GuncelleAciliyet" asp-controller="Aciliyet" class="w-75 mx-auto p-3" method="post">
-    <input type="hidden" asp-for="@Model.id"/>
+    <input type="hidden" asp-for="@Model.id" />
     <div class="form-group">
         <label asp-for="@Model.Tanim"></label>
         <span asp-validation-for="@Model.Tanim" class="text-danger"></span>
         <input asp-for="@Model.Tanim" type="text" class="form-control" />
     </div>
-    <button type="submit" class="btn btn-info btn-sm">Kaydet</button>
+    <button type="submit" class="btn btn-info btn-sm"><i class="far fa-save mr-2"></i> Kaydet</button>
+    <a class="btn btn-warning btn-sm" asp-action="AciliyetVazgec"><i class="fas fa-arrow-left mr-2"></i> Vazgeç</a>
 </form>
 
 @section JavaScript {

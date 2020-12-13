@@ -1,19 +1,18 @@
 ﻿@model List<GorevListAllViewModel>
 @if (Model.Count > 0)
 {
-    <table class="table table-hover table-sm mt-2">
+    <table class="table table-hover table-bordered table-sm mt-2">
         <tr>
-            <th>Ad</th>
-            <th>Açıklama</th>
+            <th>Ad</th> 
             <th>Oluşturulma Tarihi</th>
-            <th>Personel</th>
-            <th>Aciliyet Tanım</th> 
+            <th>Çalışan Personel</th>
+            <th>Aciliyet</th>
+            <th>Rapor Sayısı</th>
         </tr>
         @foreach (GorevListAllViewModel item in Model)
         {
             <tr>
-                <td>@item.Ad</td>
-                <td>@item.Aciklama</td>
+                <td>@item.Ad</td> 
                 <td>@item.OlusturulmaTarih.ToShortDateString()</td>
                 <td>
                     @{
@@ -23,14 +22,26 @@
                         }
                         else
                         {
-                            <span class="badge badge-danger ">@item.AppUser.Name çalışıyor.</span>
+                            <span class="badge badge-warning ">@item.AppUser.Name çalışıyor.</span>
                         }
                     }
                 </td>
                 <td>
                     @item.Aciliyet.Tanim
                 </td>
-
+                <td>@item.Raporlar.Count</td>
+                <td>
+                    @{
+                        if (item.AppUser == null)
+                        {
+                            <a asp-action="AtaPersonel" asp-route-id="@item.Id" class="btn btn-info btn-sm"><i class="fas fa-user-plus mr-2"></i> Personel Ata</a>
+                        }
+                        else
+                        {
+                            <a asp-action="Gorevlendir" asp-route-id="@item.Id" class="btn btn-warning btn-sm"><i class="far fa-file-alt mr-2"></i> Detay Göster</a>
+                        }
+                    }
+                </td>
             </tr>
         }
     </table>

@@ -1,0 +1,50 @@
+﻿@model  PersonelGorevListViewModel
+<div class="row mt-2">
+
+    <div class="col-md-4">
+        <div class="card border border-primary shadow">
+            <div class="card-header">
+                <h4 class="text-center lead pt-3">Görev Bilgileri</h4>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">@Model.gorev.Ad</h5>
+                <p class="card-text">@Model.gorev.Aciklama</p>
+                <p class="card-text"><strong>Aciliyet Durumu : </strong> <span class="badge badge-primary"> @Model.gorev.Aciliyet.Tanim</span> </p>
+                <p class="card-text"><small>@Model.gorev.OlusturulmaTarih.ToShortDateString()</small></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card border border-primary mb-3 p2">
+            <div class="card-header">
+                <h4 class="text-center lead pt-3">Personel Bilgileri</h4>
+            </div>
+            <div class="row no-gutters">
+                <div class="col-md-2">
+                    <img src="~/img/@Model.user.Picture" class="card-img img-thumbnail shadow" style="height:10rem!important;width:10rem!important;" alt="@Model.user.Name">
+                </div>
+                <div class="col-md-10">
+                    <div class="card-body">
+                        <h5 class="card-title">@Model.user.Name @Model.user.SurName</h5>
+                        <p class="card-text">
+                            <small class="text-muted">@Model.user.EMail</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <form asp-action="AtaPersonel" method="post">
+            <p class="lead">
+                Yukarıdaki Göreve İlgili Personel Atanacaktır. Bu işlemi Gerçekleştirmek İstediğinizden Emin Misiniz ?
+            </p>
+            <div class="form-group text-center">
+                <input type="hidden" name="PersonelId" value="@Model.user.Id" />
+                <input type="hidden" name="GorevId" value="@Model.gorev.Id" />
+                <a asp-action="AtaPersonel" asp-route-id="@Model.gorev.Id" class="btn btn-warning btn-sm">Vazgeç</a>
+                <button type="submit" class="btn btn-primary btn-sm">Görevlendir</button>
+            </div>
+        </form>
+    </div>
+</div>

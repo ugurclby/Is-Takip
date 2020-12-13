@@ -1,0 +1,43 @@
+﻿@model AppUserListViewModel
+
+<form class="w-75 mx-auto p3">
+    <div class="form-group">
+        <label asp-for="@Model.Name"></label>
+        <span asp-validation-for="@Model.Name"></span>
+        <input asp-for="@Model.Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.SurName"></label>
+        <span asp-validation-for="@Model.SurName"></span>
+        <input asp-for="@Model.SurName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.EMail"></label>
+        <span asp-validation-for="@Model.EMail"></span>
+        <input asp-for="@Model.EMail" class="form-control" />
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-4">
+                <div>
+                    <h5 >Şuanki Resminiz: </h5>
+                    <img src="~/img/@Model.Picture" style="height: 10rem !important; width: 10rem !important;" alt="@Model.Name" class="w-100"/>
+                </div>
+            </div>
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-4">
+                <div style="display:none!important">
+                    <h5 class="text-center">Seçtiğiniz Resminiz: </h5>
+                </div> 
+            </div>
+        </div>
+        <div class="col-md-12">
+            <label>Resim Seç:</label>
+            <input type="file" class="form-control-file" name="Resim"/>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-sm btn-primary"><i class="far fa-save mr-2"></i> Kaydet</button>
+</form>

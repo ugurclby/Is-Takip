@@ -23,6 +23,8 @@ namespace YSKProje.ToDo.Web
             services.AddScoped<IRaporService, RaporManager>();
             services.AddScoped<IAciliyetService, AciliyetManager>();
             services.AddScoped<IAppUserService, AppUserManager>();
+            services.AddScoped<IDocumentService, DocumentManager>();
+
 
             services.AddScoped<IGorevDal, EfGorevRepository>();
             services.AddScoped<IAciliyetDal, EfAciliyetRepository>();

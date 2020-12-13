@@ -33,6 +33,10 @@ namespace YSKProje.ToDo.Web.Areas.Admin.Controllers
 
             return View(aciliyetListViewModel);
         }
+        public IActionResult AciliyetVazgec()
+        {
+            return RedirectToAction("Index");
+        }
         public IActionResult AciliyetEkle ()
         {
             TempData["Active"] = "Aciliyet";

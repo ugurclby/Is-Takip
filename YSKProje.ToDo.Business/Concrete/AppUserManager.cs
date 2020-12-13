@@ -17,6 +17,11 @@ namespace YSKProje.ToDo.Business.Concrete
         public List<AppUser> GetirAdminOlmayan()
         {
             return _appUserDal.GetirAdminOlmayan();
-        } 
+        }
+
+        public List<AppUser> GetirAdminOlmayan(out int toplamSayfa, string aranacakKelime, int aktifSayfa = 1)
+        {
+            return _appUserDal.GetirAdminOlmayan(out toplamSayfa,aranacakKelime, aktifSayfa);
+        }
     }
 }
