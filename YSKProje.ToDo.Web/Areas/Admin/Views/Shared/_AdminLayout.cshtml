@@ -17,10 +17,12 @@
     <!-- Bootstrap core CSS -->
 
 
-    <link href="~/lib/bootswatch/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/bootswatch/bootstrap.min.css" rel="stylesheet" /> 
     <!-- Custom styles for this template -->
     <link href="~/lib/template-css/simple-sidebar.css" rel="stylesheet" />
     <link href="~/lib/Awesome/css/all.min.css" rel="stylesheet" />
+
+
 </head>
 
 <body>
@@ -28,19 +30,7 @@
     <div class="d-flex" id="wrapper">
 
         <!-- Sidebar -->
-        <div class="border-right" id="sidebar-wrapper">
-            <div class="sidebar-heading">Admin</div>
-            <div id="DV_Liste" class="list-group list-group-flush">
-                <a id="a_GorevIslem" asp-action="Index" asp-controller="Gorev" class="list-group-item list-group-item-action"><i class="fas fa-tasks mr-2"></i> Görev İşlemleri</a>
-                <a id="a_AciliyetListe" asp-action="Index" asp-controller="Aciliyet" class="list-group-item list-group-item-action"><i class="fas fa-exclamation-circle mr-2"></i> Aciliyet Listesi</a>
-                <a id="a_IsEmri" asp-action="Index" asp-controller="IsEmri" class="list-group-item list-group-item-action"><i class="far fa-calendar-check mr-2"></i> İş Emri</a>
-                <a id="a_Dene2" asp-action="Index" asp-controller="Aciliyet" class="list-group-item list-group-item-action"><i class="fas fa-chart-pie mr-2"></i> Grafikler</a>
-                <a id="a_Dene3" asp-action="Index" asp-controller="Aciliyet" class="list-group-item list-group-item-action"><i class="fas fa-chart-line mr-2"></i> İstatistikler</a>
-                <a id="a_Profil" asp-action="Index" asp-controller="Profil" class="list-group-item list-group-item-action"><i class="fas fa-user mr-2"></i> Profilim</a>
-                <a id="a_Dene3" asp-action="Index" asp-controller="Aciliyet" class="list-group-item list-group-item-action"><i class="fas fa-bell mr-2"></i> Bildirimler</a>
-                <a id="a_Dene4" asp-action="Index" asp-controller="Aciliyet" class="list-group-item list-group-item-action"><i class="fas fa-sign-out-alt mr-2"></i> Çıkış Yap</a>
-            </div>
-        </div>
+        @await Component.InvokeAsync("Wrapper")
         <!-- /#sidebar-wrapper -->
         <!-- Page Content -->
         <div id="page-content-wrapper">
@@ -58,9 +48,10 @@
     </div>
     <!-- /#wrapper -->
     <!-- Bootstrap core JavaScript -->
-    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/jquery/jquery.min.js"></script> 
     <script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/Awesome/js/all.min.js"></script>
+
     @RenderSection("JavaScript", false)
     <!-- Menu Toggle Script -->
     <script>

@@ -91,5 +91,11 @@ namespace YSKProje.ToDo.Web.Controllers
             return View(appUserViewModel);
         }
 
+        public async Task<IActionResult> CikisYap()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index");
+        }
+
     }
 }
