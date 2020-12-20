@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using YSKProje.ToDo.DataAccess.Concrete.EntityFrameworkCore.Contexts;
 using YSKProje.ToDo.DataAccess.Interfaces;
 using YSKProje.ToDo.Entities.Concrete;
@@ -35,6 +37,22 @@ namespace YSKProje.ToDo.DataAccess.Concrete.EntityFrameworkCore.Repositories
         {
             using TodoContext context = new TodoContext();
             return context.Gorev.Include(x => x.Aciliyet).Include(x => x.AppUser).Include(x => x.Raporlar).Where(x => !x.Durum).OrderByDescending(x => x.OlusturulmaTarih).ToList();
+        }
+
+        public List<Gorev> GetirTumTablolarla(Expression<Func<Gorev, bool>> filter)
+        {
+            using TodoContext context = new TodoContext();
+            return context.Gorev.Include(x => x.Aciliyet).Include(x => x.AppUser).Include(x => x.Raporlar).Where(filter).OrderByDescending(x => x.OlusturulmaTarih).ToList();
+        }
+
+        public List<Gorev> GetirTumTablolarlaTamamlanmayan(out int toplamSayfa, int userId, int aktifSayfa = 1)
+        {
+            using TodoContext context = new TodoContext();
+            var gorev = context.Gorev.Include(x => x.Aciliyet).Include(x => x.AppUser).Include(x => x.Raporlar).Where(x => x.AppUserId == userId && x.Durum).OrderByDescending(x => x.OlusturulmaTarih);
+            
+            toplamSayfa = (int) Math.Ceiling((double)gorev.Count()/3);
+
+            return gorev.Skip((aktifSayfa - 1) * 3).Take(3).ToList();
         }
 
         public Gorev RaporGetirGorevIdile(int gorevId)

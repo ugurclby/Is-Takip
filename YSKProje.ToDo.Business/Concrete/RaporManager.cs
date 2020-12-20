@@ -35,6 +35,11 @@ namespace YSKProje.ToDo.Business.Concrete
             _raporDal.Kaydet(tablo);
         }
 
+        public Rapor RaporGetirGorevileId(int RaporId)
+        {
+            return _raporDal.RaporGetirGorevileId(RaporId);
+        }
+
         public void Sil(Rapor tablo)
         {
             _raporDal.Sil(tablo);

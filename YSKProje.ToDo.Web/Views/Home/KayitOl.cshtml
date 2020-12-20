@@ -4,32 +4,32 @@
     <div class="form-group">
         <label asp-for="@Model.Name"></label>
         <span class="text-warning" asp-validation-for="@Model.Name"></span>
-        <input asp-for="@Model.Name" class="form-control" />
+        <input asp-for="@Model.Name" class="form-control" autocomplete="off" />
     </div>
     <div class="form-group">
         <label asp-for="@Model.SurName"></label>
         <span class="text-warning" asp-validation-for="@Model.SurName"></span>
-        <input asp-for="@Model.SurName" class="form-control" />
+        <input asp-for="@Model.SurName" class="form-control" autocomplete="off"/>
     </div>
     <div class="form-group">
         <label asp-for="@Model.Email"></label>
         <span class="text-warning" asp-validation-for="@Model.Email"></span>
-        <input asp-for="@Model.Email" class="form-control" />
+        <input asp-for="@Model.Email" class="form-control" autocomplete="off"/>
     </div>
     <div class="form-group">
         <label asp-for="@Model.Password"></label>
         <span class="text-warning" asp-validation-for="@Model.Password"></span>
-        <input asp-for="@Model.Password" class="form-control" />
+        <input asp-for="@Model.Password" class="form-control" autocomplete="off"/>
     </div>
     <div class="form-group">
         <label asp-for="@Model.ConfirmPassword"></label>
         <span class="text-warning" asp-validation-for="@Model.ConfirmPassword"></span>
-        <input asp-for="@Model.ConfirmPassword" class="form-control" />
+        <input asp-for="@Model.ConfirmPassword" class="form-control" autocomplete="off"/>
     </div> 
     <div class="form-group">
         <label asp-for="@Model.UserName"></label>
         <span class="text-warning" asp-validation-for="@Model.UserName"></span>
-        <input asp-for="@Model.UserName" class="form-control" />
+        <input asp-for="@Model.UserName" class="form-control" autocomplete="off"/>
     </div>
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <a asp-action="Index" class="btn btn-warning btn-sm">Vazgeç</a>

@@ -1,0 +1,46 @@
+﻿@model List<GorevListAllViewModel>
+
+
+@foreach (var item in Model)
+{
+    <div class="card my-2">
+        <h5 class="card-header">@item.Ad</h5>
+        <div class="card-body">
+            <h5 class="card-title"> <span class="text-danger">Aciliyet Durumu :</span> @item.Aciliyet.Tanim</h5>
+            <p class="card-text">@item.Aciklama</p>
+            <p class="text-right">
+                @if (item.Raporlar.Count > 0)
+                {
+                    <a class="btn btn-light btn-sm" data-toggle="collapse" href="#collapseExample_@item.Id" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        Raporlara Git <span class="badge badge-dark">@item.Raporlar.Count</span><i class="fas fa-arrow-down ml-2"></i>
+                    </a>
+                }
+            </p>
+            <div class="collapse" id="collapseExample_@item.Id">
+                <table class="table table-hover table-bordered table-sm mt-2">
+                    <tr>
+                        <th>Ad</th>
+                        <th>Tanım</th>
+                    </tr>
+                    @foreach (var rapor in item.Raporlar)
+                    {
+                        <tr>
+                            <td>@rapor.Tanim</td>
+                            <td>@rapor.Detay</td>
+                        </tr>
+                    }
+                </table>
+
+            </div>
+        </div>
+    </div>
+}
+<nav aria-label="Page navigation example" class="float-right">
+    <ul class="pagination">
+        @for (int i = 1; i <= ViewBag.ToplamSayfa; i++)
+        {
+            <li class="page-item @(ViewBag.AktifSayfa == i ? "active" : "")"><a asp-action="Index" asp-route-aktifsayfa="@i" class="page-link">@i</a></li>
+        }
+    </ul>
+</nav>
+

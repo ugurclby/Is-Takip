@@ -31,5 +31,7 @@ namespace YSKProje.ToDo.DataAccess.Concrete.EntityFrameworkCore.Contexts
       
         public DbSet<Gorev> Gorev { get; set; }
         public DbSet<Aciliyet> Aciliyet  { get; set; }
+
+        public DbSet<Rapor> Rapor { get; set; }
     }
 }

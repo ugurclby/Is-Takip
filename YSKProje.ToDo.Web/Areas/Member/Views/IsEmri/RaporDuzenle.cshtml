@@ -1,0 +1,26 @@
+﻿@model RaporAddViewModel
+
+<form class="w-75 mx-auto p-3" method="post" asp-action="RaporDuzenle">
+    <input type="hidden" asp-for="@Model.Id" />
+    <div class="card text-white bg-primary my-3">
+        <div class="card-header">Görevin Adı: @Model.Gorev.Ad</div>
+        <div class="card-body">
+            <h4 class="card-title">Aciliyet Durumu: @Model.Gorev.Aciliyet.Tanim</h4>
+            <p class="card-text">Açıklama: @Model.Gorev.Aciklama</p>
+        </div>
+    </div>
+
+    <input type="hidden" asp-for="@Model.GorevId" />
+    <div class="form-group">
+        <label asp-for="@Model.Tanim"></label>
+        <span asp-validation-for="@Model.Tanim" class="text-danger"></span>
+        <input asp-for="@Model.Tanim" type="text" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Detay"></label>
+        <span asp-validation-for="@Model.Detay" class="text-danger"></span>
+        <textarea asp-for="@Model.Detay" type="text" class="form-control"></textarea>
+    </div>
+    <button type="submit" class="btn btn-info btn-sm"><i class="far fa-save mr-2"></i> Kaydet</button>
+    <a class="btn btn-warning btn-sm" asp-action="Index"><i class="fas fa-arrow-left mr-2"></i> Vazgeç</a>
+</form> 

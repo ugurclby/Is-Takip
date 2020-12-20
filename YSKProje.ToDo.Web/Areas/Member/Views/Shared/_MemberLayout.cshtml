@@ -1,5 +1,9 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@{
+    string active = TempData["Active"]?.ToString();
+}
+
+<!DOCTYPE html>
+<html lang="tr">
 
 <head>
 
@@ -8,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <title>Test</title>
 
     <!-- Bootstrap core CSS -->
 
@@ -16,6 +20,9 @@
     <link href="~/lib/bootswatch/bootstrap.min.css" rel="stylesheet" />
     <!-- Custom styles for this template -->
     <link href="~/lib/template-css/simple-sidebar.css" rel="stylesheet" />
+    <link href="~/lib/Awesome/css/all.min.css" rel="stylesheet" />
+
+
 </head>
 
 <body>
@@ -23,53 +30,16 @@
     <div class="d-flex" id="wrapper">
 
         <!-- Sidebar -->
-        <div class="border-right" id="sidebar-wrapper">
-            <div class="sidebar-heading">Member Layout </div>
-            <div class="list-group list-group-flush">
-                <a href="#" class="list-group-item list-group-item-action active">Görev İşlemleri</a>
-                <a href="#" class="list-group-item list-group-item-action">Shortcuts</a>
-                <a href="#" class="list-group-item list-group-item-action">Overview</a>
-                <a href="#" class="list-group-item list-group-item-action">Events</a>
-                <a href="#" class="list-group-item list-group-item-action">Profile</a>
-                <a href="#" class="list-group-item list-group-item-action">Status</a>
-            </div>
-        </div>
+        @await Component.InvokeAsync("Wrapper")
         <!-- /#sidebar-wrapper -->
         <!-- Page Content -->
         <div id="page-content-wrapper">
 
-            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-                <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
-
-                @*<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Link</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Dropdown
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>*@
+            <nav class="navbar navbar-expand-lg navbar-light border-bottom">
+                <button class="btn btn-outline-primary" id="menu-toggle"><i class="fas fa-sliders-h"></i> Menü</button>
             </nav>
 
             <div class="container-fluid">
-
                 @RenderBody()
             </div>
         </div>
@@ -80,11 +50,41 @@
     <!-- Bootstrap core JavaScript -->
     <script src="~/lib/jquery/jquery.min.js"></script>
     <script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/Awesome/js/all.min.js"></script> 
+    <script src="~/lib/jqueryValidate/jquery.validate.min.js"></script>
+    <script src="~/lib/jqueryUnob/jquery.validate.unobtrusive.min.js"></script> 
+
+    @RenderSection("JavaScript", false)
     <!-- Menu Toggle Script -->
-    <script>$("#menu-toggle").click(function (e) {
+    <script>
+        $(document).ready(function () {
+        if ('@active' =='Aciliyet') {
+            $("#a_AciliyetListe").addClass("active");
+        } else if ('@active' =='Gorev') {
+            $("#a_GorevIslem").addClass("active");
+        }
+        else if ('@active' =='IsEmri') {
+            $("#a_IsEmri").addClass("active");
+            }
+        else if ('@active' =='Profil') {
+            $("#a_Profil").addClass("active");
+        }
+        });
+        $("#menu-toggle").click(function (e) {
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
-        });</script>
+        });
+
+        //$("#DV_Liste a").click(function () {
+        //    var activeList = $(this);
+        //    $("#DV_Liste a").each(function () {
+        //        $(this).removeClass("active");
+        //    });
+        //    $(activeList).addClass("active");
+        //});
+
+
+    </script>
 
 </body>
 

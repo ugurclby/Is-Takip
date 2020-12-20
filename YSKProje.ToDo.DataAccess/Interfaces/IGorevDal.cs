@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using YSKProje.ToDo.Entities.Concrete;
 
 namespace YSKProje.ToDo.DataAccess.Interfaces
@@ -6,7 +8,9 @@ namespace YSKProje.ToDo.DataAccess.Interfaces
     public interface IGorevDal : IGenericDal<Gorev>
     {
         List<Gorev> GetirAciliyetİleTamamlanmayan();
-        List<Gorev> GetirTumTablolarla(); 
+        List<Gorev> GetirTumTablolarla();
+        List<Gorev> GetirTumTablolarla(Expression<Func<Gorev,bool>> filter);
+        List<Gorev> GetirTumTablolarlaTamamlanmayan(out int toplamSayfa,int userId, int aktifSayfa = 1);
         Gorev GetirAciliyetileId(int id);
         List<Gorev> GetirileAppUserId(int userId);
         Gorev RaporGetirGorevIdile(int gorevId);
