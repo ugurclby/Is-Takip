@@ -56,12 +56,12 @@
 
     @RenderSection("JavaScript", false)
     <!-- Menu Toggle Script -->
-    <script>
+<script>
         $(document).ready(function () {
         if ('@active' =='Aciliyet') {
             $("#a_AciliyetListe").addClass("active");
         } else if ('@active' =='Gorev') {
-            $("#a_GorevIslem").addClass("active");
+            $("#a_TamamIsler").addClass("active");
         }
         else if ('@active' =='IsEmri') {
             $("#a_IsEmri").addClass("active");
@@ -69,6 +69,12 @@
         else if ('@active' =='Profil') {
             $("#a_Profil").addClass("active");
         }
+        else if ('@active' == 'Bildirim') {
+            $("#a_Bildirim").addClass("active");
+            }
+        else if ('@active' == 'Anasayfa') {
+            $("#a_Anasayfa").addClass("active");
+            }
         });
         $("#menu-toggle").click(function (e) {
             e.preventDefault();
@@ -84,7 +90,7 @@
         //});
 
 
-    </script>
+</script>
 
 </body>
 

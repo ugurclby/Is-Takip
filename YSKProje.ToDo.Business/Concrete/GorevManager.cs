@@ -77,5 +77,14 @@ namespace YSKProje.ToDo.Business.Concrete
             _gorevDal.Sil(tablo);
         }
 
+        public int TamamlananGorevSayisi(int AppUserId)
+        {
+            return _gorevDal.TamamlananGorevSayisi(AppUserId);
+        }
+
+        public int TamamlanmasiGerekenGorevSayisi(int AppUserId)
+        {
+            return _gorevDal.TamamlanmasiGerekenGorevSayisi(AppUserId);
+        }
     }
 }

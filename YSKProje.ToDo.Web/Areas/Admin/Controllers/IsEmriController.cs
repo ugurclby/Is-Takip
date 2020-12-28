@@ -19,12 +19,14 @@ namespace YSKProje.ToDo.Web.Areas.Admin.Controllers
         IGorevService _gorevService;
         UserManager<AppUser> _userManager;
         IDocumentService _documentService;
-        public IsEmriController(IAppUserService appUserService, IGorevService gorevService, UserManager<AppUser> userManager, IDocumentService documentService)
+        IBildirimService _bildirimService;
+        public IsEmriController(IAppUserService appUserService, IGorevService gorevService, UserManager<AppUser> userManager, IDocumentService documentService, IBildirimService bildirimService)
         {
             _appUserService = appUserService;
             _gorevService = gorevService;
             _userManager = userManager;
             _documentService = documentService;
+            _bildirimService = bildirimService;
         }
         public IActionResult Index()
         {
@@ -96,6 +98,13 @@ namespace YSKProje.ToDo.Web.Areas.Admin.Controllers
             var guncellenecekGorev= _gorevService.GetirIdile(personelGorevlendirModel.GorevId);
             guncellenecekGorev.AppUserId = personelGorevlendirModel.PersonelId;
             _gorevService.Guncelle(guncellenecekGorev);
+
+            _bildirimService.Kaydet(new Bildirim()
+            {
+                AppUserId = personelGorevlendirModel.PersonelId,
+                Aciklama = $"{guncellenecekGorev.Ad} adlı iş için görevlendirildiniz."
+            });
+
             return RedirectToAction("Index");
         }
 

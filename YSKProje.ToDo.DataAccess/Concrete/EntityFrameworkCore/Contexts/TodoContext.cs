@@ -24,14 +24,15 @@ namespace YSKProje.ToDo.DataAccess.Concrete.EntityFrameworkCore.Contexts
             modelBuilder.ApplyConfiguration(new AciliyetMap());
             modelBuilder.ApplyConfiguration(new RaporMap());
             modelBuilder.ApplyConfiguration(new AppUserMap());
+            modelBuilder.ApplyConfiguration(new BildirimMap());
 
             base.OnModelCreating(modelBuilder);
         }
 
       
         public DbSet<Gorev> Gorev { get; set; }
-        public DbSet<Aciliyet> Aciliyet  { get; set; }
-
+        public DbSet<Aciliyet> Aciliyet  { get; set; } 
         public DbSet<Rapor> Rapor { get; set; }
+        public DbSet<Bildirim> Bildirim { get; set; }
     }
 }

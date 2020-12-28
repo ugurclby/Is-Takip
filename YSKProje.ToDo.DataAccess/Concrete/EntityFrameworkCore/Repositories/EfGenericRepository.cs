@@ -12,8 +12,7 @@ namespace YSKProje.ToDo.DataAccess.Concrete.EntityFrameworkCore.Repositories
         where Tablo : class, ITablo, new()
     {
         public List<Tablo> GetirHepsi()
-        {
-          
+        { 
             using var context = new TodoContext();
             return context.Set<Tablo>().ToList();
         }
@@ -35,7 +34,7 @@ namespace YSKProje.ToDo.DataAccess.Concrete.EntityFrameworkCore.Repositories
         {
             using var context = new TodoContext();
             context.Set<Tablo>().Add(tablo);
-            context.SaveChanges();
+            context.SaveChanges(true); 
         }
 
         public void Sil(Tablo tablo)

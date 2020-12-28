@@ -13,6 +13,7 @@ namespace YSKProje.ToDo.Web.Areas.Admin.Controllers
     {
         public IActionResult Index()
         {
+            TempData["Active"] = "Anasayfa";
             return View();
         }
     }

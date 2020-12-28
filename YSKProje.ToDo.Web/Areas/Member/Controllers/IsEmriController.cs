@@ -19,11 +19,14 @@ namespace YSKProje.ToDo.Web.Areas.Member.Controllers
         private readonly IGorevService _gorevService;
         private readonly UserManager<AppUser> _userManager;
         private readonly IRaporService _raporService;
-        public IsEmriController(IGorevService gorevService, UserManager<AppUser> userManager, IRaporService raporService)
+        private readonly IBildirimService _bildirimService;
+
+        public IsEmriController(IGorevService gorevService, UserManager<AppUser> userManager, IRaporService raporService, IBildirimService bildirimService)
         {
             _gorevService = gorevService;
             _userManager = userManager;
             _raporService = raporService;
+            _bildirimService = bildirimService;
         }
         public async Task<IActionResult> Index()
         {
@@ -63,18 +66,33 @@ namespace YSKProje.ToDo.Web.Areas.Member.Controllers
             return View(raporAddViewModel);
         }
         [HttpPost]
-        public IActionResult RaporEkle(RaporAddViewModel raporAddViewModel)
+        public async Task<IActionResult> RaporEkle(RaporAddViewModel raporAddViewModel)
         {
             TempData["Active"] = "IsEmri";
             if (ModelState.IsValid)
             {
-                Rapor rapor = new Rapor(); 
-
+                Rapor rapor = new Rapor();
+                 
                 rapor.Tanim = raporAddViewModel.Tanim;
                 rapor.Detay = raporAddViewModel.Detay;
                 rapor.GorevId = raporAddViewModel.GorevId; 
 
                 _raporService.Kaydet(rapor);
+              
+                var adminRole = await _userManager.GetUsersInRoleAsync("Admin");
+
+                var aktifKullanici = await _userManager.FindByNameAsync(User.Identity.Name);
+
+                foreach (var admin in adminRole)
+                {
+                    _bildirimService.Kaydet(new Bildirim()
+                    {
+                        AppUserId = admin.Id,
+                        Aciklama = $"{aktifKullanici.Name} {aktifKullanici.Surname} isimli kullanıcı rapor ekledi."
+                    });
+                }
+
+
                 return RedirectToAction("Index");
             } 
 
@@ -104,10 +122,7 @@ namespace YSKProje.ToDo.Web.Areas.Member.Controllers
         [HttpPost]
         public IActionResult RaporDuzenle(RaporAddViewModel raporAddViewModel)
         {
-            TempData["Active"] = "IsEmri"; 
-            
-            
-            
+            TempData["Active"] = "IsEmri";  
             
             if (ModelState.IsValid)
             {
@@ -136,12 +151,24 @@ namespace YSKProje.ToDo.Web.Areas.Member.Controllers
             return Json(null);
         }
 
-        public IActionResult GorevTamamla (int GorevId)
+        public async Task<IActionResult> GorevTamamla (int GorevId)
         {
             var gorev = _gorevService.GetirIdile(GorevId);
             gorev.Durum = true; 
             _gorevService.Guncelle(gorev);
 
+            var adminRole = await _userManager.GetUsersInRoleAsync("Admin");
+
+            var aktifKullanici = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            foreach (var admin in adminRole)
+            {
+                _bildirimService.Kaydet(new Bildirim()
+                {
+                    AppUserId = admin.Id,
+                    Aciklama = $"{aktifKullanici.Name} {aktifKullanici.Surname} isimli kullanıcı görevi tamamladı."
+                });
+            }
             return Json(null);
         }
     }

@@ -63,5 +63,19 @@ namespace YSKProje.ToDo.DataAccess.Concrete.EntityFrameworkCore.Repositories
 
             return sonuc;
         }
+
+        public int TamamlananGorevSayisi(int AppUserId)
+        {
+            using TodoContext context = new TodoContext();
+
+            return context.Gorev.Where(x => x.Durum && x.AppUserId==AppUserId).Count();
+        }
+
+        public int TamamlanmasiGerekenGorevSayisi(int AppUserId)
+        {
+            using TodoContext context = new TodoContext();
+
+            return context.Gorev.Where(x => !x.Durum && x.AppUserId == AppUserId).Count();
+        }
     }
 }

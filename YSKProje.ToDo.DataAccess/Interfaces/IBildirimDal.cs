@@ -5,9 +5,9 @@ using YSKProje.ToDo.Entities.Concrete;
 
 namespace YSKProje.ToDo.DataAccess.Interfaces
 {
-    public interface IRaporDal : IGenericDal<Rapor>
+    public interface IBildirimDal:IGenericDal<Bildirim>
     {
-        Rapor RaporGetirGorevileId(int RaporId);
-        int GetirRaporSayisiileAppUserId(int id);
+        List<Bildirim> OkunmamisBildirim(int AppUserId);
+        int OkunmayanBildirimSayisi(int AppUserId);
     }
 }

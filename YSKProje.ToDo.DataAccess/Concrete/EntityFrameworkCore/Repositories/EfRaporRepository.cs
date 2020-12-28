@@ -20,5 +20,12 @@ namespace YSKProje.ToDo.DataAccess.Concrete.EntityFrameworkCore.Repositories
             return rapor;
 
         }
+        public int GetirRaporSayisiileAppUserId(int id)
+        {
+            using var context = new TodoContext();
+            var result = context.Gorev.Include(I => I.Raporlar).Where(I => I.AppUserId == id);
+
+            return result.SelectMany(I => I.Raporlar).Count();
+        }
     }
 }

@@ -12,5 +12,6 @@ namespace YSKProje.ToDo.Entities.Concrete
         public string Surname { get; set; }
         public string Picture { get; set; } = "default_user_icon.png";
         public List<Gorev> Gorevler { get; set; }
+        public List<Bildirim> Bildirimler { get; set; }
     }
 }

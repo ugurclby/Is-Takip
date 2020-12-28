@@ -13,6 +13,8 @@ namespace YSKProje.ToDo.Business.Interfaces
         List<Gorev> GetirTumTablolarlaTamamlanmayan(out int toplamSayfa, int userId, int aktifSayfa = 1);
         Gorev GetirAciliyetileId(int id);
         List<Gorev> GetirileAppUserId(int userId);
-        Gorev RaporGetirGorevIdile(int gorevId);
+        Gorev RaporGetirGorevIdile(int gorevId); 
+        int TamamlananGorevSayisi(int AppUserId);
+        int TamamlanmasiGerekenGorevSayisi(int AppUserId);
     }
 }

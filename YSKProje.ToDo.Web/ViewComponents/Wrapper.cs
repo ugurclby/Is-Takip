@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using YSKProje.ToDo.Business.Interfaces;
 using YSKProje.ToDo.Entities.Concrete;
 using YSKProje.ToDo.Web.Areas.Admin.Models;
 
@@ -13,9 +14,11 @@ namespace YSKProje.ToDo.Web.ViewComponents
     {
         // ViewComponentler e ait view'ler shared altında Components altında class ismi  bir klasör daha oluşturulur ve default isminde view oluşturulur.
         private readonly UserManager<AppUser> _userManager;
-        public Wrapper(UserManager<AppUser> userManager)
+        private readonly IBildirimService _bildirimService;
+        public Wrapper(UserManager<AppUser> userManager, IBildirimService bildirimService)
         {
             _userManager = userManager;
+            _bildirimService = bildirimService;
         }
         public IViewComponentResult Invoke()
         {
@@ -28,6 +31,10 @@ namespace YSKProje.ToDo.Web.ViewComponents
                 SurName = user.Surname,
                 Picture = user.Picture
             };
+
+            int okunmamisBildirim = _bildirimService.OkunmamisBildirim(user.Id).Count();
+
+            ViewBag.OkunmamisBildirim = okunmamisBildirim;
 
             var roles = _userManager.GetRolesAsync(user).Result;
 

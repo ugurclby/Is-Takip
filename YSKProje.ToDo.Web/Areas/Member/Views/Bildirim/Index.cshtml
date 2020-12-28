@@ -1,0 +1,27 @@
+﻿@model List<OkunmamisBildirimListViewModel>
+
+@if (Model.Count > 0)
+{
+    @foreach (var item in Model)
+    {
+        <div class="alert alert-light p-3 my-2">
+            <form method="post" asp-action="Index" asp-route-bildirimId="@item.Id" class="my1">
+                <p class="lead">
+                    @item.Aciklama
+                    <button type="submit" class=" btn btn-info float-sm-right ">Okundu</button>
+                </p>
+            </form>
+        </div>
+    }
+}
+else
+{
+    <div class="alert alert-light p-3 my-2">
+        <p class="lead">
+            Okunmamış Bildirim Bulunamadı.
+        </p>
+    </div>
+}
+
+
+
