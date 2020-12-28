@@ -1,7 +1,79 @@
-﻿
-@{
-    ViewData["Title"] = "Index"; 
-}
+﻿<div class="row mt-2">
+    <div class="col-md-6">
+        <div class="card text-white bg-primary text-center mb-3">
+            <div class="card-body">
+                <h4 class="card-title">Atanmayı Beklenen Görev Sayısı</h4>
+                @if (ViewBag.AtanmayiBekleyenGorev > 0)
+                {
+                    <p class="card-text">@ViewBag.AtanmayiBekleyenGorev </p>
+                    <p class="">
+                        <a asp-action="Index" asp-controller="IsEmri" class="btn btn-sm btn-light"><i class="fas fa-chevron-circle-right"></i> İncele</a>
+                    </p>
+                }
+                else
+                {
+                    <p class="lead">Atanmayı Bekleyen Görev Yoktur</p>
+                }
 
-<h1>Admin</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card text-white bg-primary text-center mb-3">
+            <div class="card-body">
+                <h4 class="card-title">Tamamlanan Görev Sayısı</h4>
+                @if (ViewBag.TamamlananGorevSayisi > 0)
+                {
+                    <p class="card-text">@ViewBag.TamamlananGorevSayisi</p>
+                    
+                }
+                else
+                {
+                    <p class="lead">Tamamlanan Görev Yoktur</p>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-2">
+    <div class="col-md-6">
+        <div class="card text-white bg-primary text-center mb-3">
+            <div class="card-body">
+                <h4 class="card-title">Okunmayan Bildirim Sayısı</h4>
+                @if (ViewBag.OkunmayanBildirimSayisi > 0)
+                {
+                    <p class="card-text">@ViewBag.OkunmayanBildirimSayisi</p>
+                    <p class="">
+                        <a asp-action="Index" asp-controller="Bildirim" class="btn btn-sm btn-light"><i class="fas fa-chevron-circle-right"></i> İncele</a>
+                    </p>
+                }
+                else
+                {
+                    <p class="lead">Okunmamış bildirim bulunamadı.</p>
+                }
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card text-white bg-primary text-center mb-3">
+            <div class="card-body">
+                <h4 class="card-title">Toplam Yazılan Rapor Sayısı</h4>
+                @if (ViewBag.ToplamYazilanRaporSayisi > 0)
+                {
+                    <p class="card-text">@ViewBag.ToplamYazilanRaporSayisi</p>
+                }
+                else
+                {
+                    <p class="lead">Yazılan Rapor Bulunamadı.</p>
+                }
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
 

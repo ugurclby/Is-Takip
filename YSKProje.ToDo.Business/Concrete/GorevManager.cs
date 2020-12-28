@@ -17,6 +17,11 @@ namespace YSKProje.ToDo.Business.Concrete
             _gorevDal = gorevDal;
         }
 
+        public int AtanmayiBekleyenGorevSayisi()
+        {
+            return _gorevDal.AtanmayiBekleyenGorevSayisi();
+        }
+
         public Gorev GetirAciliyetileId(int id)
         {
             return _gorevDal.GetirAciliyetileId(id);
@@ -80,6 +85,11 @@ namespace YSKProje.ToDo.Business.Concrete
         public int TamamlananGorevSayisi(int AppUserId)
         {
             return _gorevDal.TamamlananGorevSayisi(AppUserId);
+        }
+
+        public int TamamlananGorevSayisi()
+        {
+            return _gorevDal.TamamlananGorevSayisi();
         }
 
         public int TamamlanmasiGerekenGorevSayisi(int AppUserId)

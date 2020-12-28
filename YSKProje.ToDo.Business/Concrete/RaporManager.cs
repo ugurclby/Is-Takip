@@ -49,5 +49,10 @@ namespace YSKProje.ToDo.Business.Concrete
         {
             _raporDal.Sil(tablo);
         }
+
+        public int ToplamYazilanRaporSayisi()
+        {
+            return _raporDal.ToplamYazilanRaporSayisi();
+        }
     }
 }

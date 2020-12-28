@@ -11,6 +11,13 @@ namespace YSKProje.ToDo.DataAccess.Concrete.EntityFrameworkCore.Repositories
 {
     public class EfGorevRepository : EfGenericRepository<Gorev>, IGorevDal
     {
+        public int AtanmayiBekleyenGorevSayisi()
+        {
+            using TodoContext context = new TodoContext();
+            var sonuc = context.Gorev.Where(x => x.AppUserId == null && !x.Durum).Count();
+            return sonuc;
+        }
+
         public Gorev GetirAciliyetileId(int id)
         {
             using TodoContext context = new TodoContext();
@@ -70,6 +77,12 @@ namespace YSKProje.ToDo.DataAccess.Concrete.EntityFrameworkCore.Repositories
 
             return context.Gorev.Where(x => x.Durum && x.AppUserId==AppUserId).Count();
         }
+        public int TamamlananGorevSayisi()
+        {
+            using TodoContext context = new TodoContext();
+
+            return context.Gorev.Where(x => x.Durum).Count();
+        }
 
         public int TamamlanmasiGerekenGorevSayisi(int AppUserId)
         {
@@ -77,5 +90,7 @@ namespace YSKProje.ToDo.DataAccess.Concrete.EntityFrameworkCore.Repositories
 
             return context.Gorev.Where(x => !x.Durum && x.AppUserId == AppUserId).Count();
         }
+
+
     }
 }

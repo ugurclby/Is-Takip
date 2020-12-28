@@ -27,5 +27,13 @@ namespace YSKProje.ToDo.DataAccess.Concrete.EntityFrameworkCore.Repositories
 
             return result.SelectMany(I => I.Raporlar).Count();
         }
+
+        public int ToplamYazilanRaporSayisi()
+        {
+            using TodoContext context = new TodoContext();
+
+            return context.Rapor.Count();
+
+        }
     }
 }

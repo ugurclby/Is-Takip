@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,36 @@ namespace YSKProje.ToDo.DataAccess.Concrete.EntityFrameworkCore.Repositories
 {
     public class EfAppUserRepository : EfGenericRepository<AppUser>, IAppUserDal
     {
+        public List<GorevTamamlamisPersonel> EnCokGorevTamamlamisPersonel()
+        {
+            using var context = new TodoContext();
+
+            //Join ile yapılmış hali 
+            //return context.Users.Join(context.Gorev, u => u.Id, g => g.AppUserId, (u, g) => new
+            //{
+            //    Isım = u.Name,
+            //    GorevId = g.Id,
+            //    Durum = g.Durum
+            //}).Where(x => x.Durum).GroupBy(x => x.Isım).OrderBy(x => x.Count()).Take(5).Select(x => new GorevTamamlamisPersonel { GorevSayisi = x.Count(), Isım = x.Key }).ToList(); 
+
+            return context.Gorev.Include(x => x.AppUser).Where(x => x.Durum).GroupBy(x => x.AppUser.Name).OrderByDescending(x => x.Count()).Take(5).Select(x => new GorevTamamlamisPersonel { GorevSayisi = x.Count(), Isim = x.Key }).ToList(); 
+        }
+
+        public List<GorevTamamlamisPersonel> EnCokGorevdeCalisanPersonel()
+        {
+            using var context = new TodoContext();
+
+            //Join ile yapılmış hali 
+            //return context.Users.Join(context.Gorev, u => u.Id, g => g.AppUserId, (u, g) => new
+            //{
+            //    Isım = u.Name,
+            //    GorevId = g.Id,
+            //    Durum = g.Durum
+            //}).Where(x => !x.Durum && x.AppUserId != null).GroupBy(x => x.Isım).OrderBy(x => x.Count()).Take(5).Select(x => new GorevTamamlamisPersonel { GorevSayisi = x.Count(), Isım = x.Key }).ToList(); 
+
+            return context.Gorev.Include(x => x.AppUser).Where(x => !x.Durum && x.AppUserId != null).GroupBy(x => x.AppUser.Name).OrderByDescending(x => x.Count()).Take(5).Select(x => new GorevTamamlamisPersonel { GorevSayisi = x.Count(), Isim = x.Key }).ToList();
+        }
+
         public List<AppUser> GetirAdminOlmayan()
         {
             /*

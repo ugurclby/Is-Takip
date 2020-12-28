@@ -14,6 +14,17 @@ namespace YSKProje.ToDo.Business.Concrete
         {
             _appUserDal = appUserDal;
     }
+
+        public List<GorevTamamlamisPersonel> EnCokGorevdeCalisanPersonel()
+        {
+            return _appUserDal.EnCokGorevdeCalisanPersonel();
+        }
+
+        public List<GorevTamamlamisPersonel> EnCokGorevTamamlamisPersonel()
+        {
+            return _appUserDal.EnCokGorevTamamlamisPersonel();
+        }
+
         public List<AppUser> GetirAdminOlmayan()
         {
             return _appUserDal.GetirAdminOlmayan();

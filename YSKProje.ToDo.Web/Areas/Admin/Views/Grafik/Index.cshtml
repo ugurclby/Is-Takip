@@ -1,0 +1,71 @@
+﻿<div class="row">
+    <div class="col-md-6">
+        <div id="EnCokGorevTamamlamis" class="w-100" style="height: 500px;"></div>
+    </div>
+    <div class="col-md-6">
+        <div id="EnCokGorevdeCalisan" class="w-100" style="height: 500px;"></div>
+    </div>
+</div>
+ 
+
+@section JavaScript {
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load("current", { packages: ["corechart"] });
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+
+            var EnCokGorevTamamlamis = [['Personel Adı','Görev Sayısı']];
+
+            $.ajax({
+                type: 'Get',
+                async: false,
+                url: './Grafik/EnCokGorevTamamlamis',
+                success: function (data) {
+                    var gelen = JSON.parse(data);
+                    $.each(gelen, function (index,value){
+                        EnCokGorevTamamlamis.push([value.Isim, value.GorevSayisi]);
+                    });
+                }
+            });
+
+            var data = google.visualization.arrayToDataTable(EnCokGorevTamamlamis);
+
+            var options = {
+                title: 'En Çok Görev Tamamlamış Personel',
+                is3D: true,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('EnCokGorevTamamlamis'));
+            chart.draw(data, options);
+        } 
+  
+        google.charts.setOnLoadCallback(drawChart2);
+
+        function drawChart2() {
+            var EnCokGorevdeCalisan = [['Personel Adı', 'Görev Sayısı']];
+
+            $.ajax({
+                type: 'Get',
+                async: false,
+                url: './Grafik/EnCokGorevdeCalisan',
+                success: function(data) {
+                    var gelen = JSON.parse(data);
+                    $.each(gelen, function (index, value) {
+                        EnCokGorevdeCalisan.push([value.Isim, value.GorevSayisi])
+                    });  
+                }
+            });
+
+            var data = google.visualization.arrayToDataTable(EnCokGorevdeCalisan);
+
+            var options = {
+                title: 'En Çok Görevde Çalışan Personel',
+                is3D: true,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('EnCokGorevdeCalisan'));
+            chart.draw(data, options);
+        }
+    </script>
+}
