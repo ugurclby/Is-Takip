@@ -1,33 +1,33 @@
-﻿@model AppUserViewModel
+﻿@model AppUserViewDto
 <form asp-action="KayitOl" class="mt-4 w-25 mx-auto p-3 shadow">
     <h4 class="text-center">Kayıt Ol</h4>
     <div class="form-group">
-        <label asp-for="@Model.Name"></label>
+        <label asp-for="@Model.Name">Ad</label>
         <span class="text-warning" asp-validation-for="@Model.Name"></span>
         <input asp-for="@Model.Name" class="form-control" autocomplete="off" />
     </div>
     <div class="form-group">
-        <label asp-for="@Model.SurName"></label>
+        <label asp-for="@Model.SurName">Soyad</label>
         <span class="text-warning" asp-validation-for="@Model.SurName"></span>
         <input asp-for="@Model.SurName" class="form-control" autocomplete="off"/>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.Email"></label>
+        <label asp-for="@Model.Email">EMail</label>
         <span class="text-warning" asp-validation-for="@Model.Email"></span>
         <input asp-for="@Model.Email" class="form-control" autocomplete="off"/>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.Password"></label>
+        <label asp-for="@Model.Password">Şifre</label>
         <span class="text-warning" asp-validation-for="@Model.Password"></span>
-        <input asp-for="@Model.Password" class="form-control" autocomplete="off"/>
+        <input type="password" asp-for="@Model.Password" class="form-control" autocomplete="off"/>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.ConfirmPassword"></label>
+        <label asp-for="@Model.ConfirmPassword">Tekrar Şifre</label>
         <span class="text-warning" asp-validation-for="@Model.ConfirmPassword"></span>
-        <input asp-for="@Model.ConfirmPassword" class="form-control" autocomplete="off"/>
+        <input type="password" asp-for="@Model.ConfirmPassword" class="form-control" autocomplete="off"/>
     </div> 
     <div class="form-group">
-        <label asp-for="@Model.UserName"></label>
+        <label asp-for="@Model.UserName">Kullanıcı Adı</label>
         <span class="text-warning" asp-validation-for="@Model.UserName"></span>
         <input asp-for="@Model.UserName" class="form-control" autocomplete="off"/>
     </div>
@@ -35,3 +35,4 @@
     <a asp-action="Index" class="btn btn-warning btn-sm">Vazgeç</a>
     <button type="submit" class="btn btn-info btn-sm">Kayıt Ol</button> 
 </form>
+ 

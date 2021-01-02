@@ -1,3 +1,7 @@
+using AutoMapper;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -6,15 +10,22 @@ using Microsoft.Extensions.Hosting;
 using System;
 using YSKProje.ToDo.Business.Concrete;
 using YSKProje.ToDo.Business.Interfaces;
+using YSKProje.ToDo.Business.ValidationRules.FluentValidation;
 using YSKProje.ToDo.DataAccess.Concrete.EntityFrameworkCore.Contexts;
 using YSKProje.ToDo.DataAccess.Concrete.EntityFrameworkCore.Repositories;
 using YSKProje.ToDo.DataAccess.Interfaces;
+using YSKProje.ToDo.DTO.DTOs.AciliyetDTOs;
+using YSKProje.ToDo.DTO.DTOs.AppUserDtos;
+using YSKProje.ToDo.DTO.DTOs.GorevDTOs;
+using YSKProje.ToDo.DTO.DTOs.RaporDTOs;
 using YSKProje.ToDo.Entities.Concrete;
+using YSKProje.ToDo.Web.TagHelpers;
 
 namespace YSKProje.ToDo.Web
 {
     public class Startup
     {
+ 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
@@ -34,27 +45,26 @@ namespace YSKProje.ToDo.Web
 
 
             services.AddDbContext<TodoContext>();
+            IdentityOptionHelper ýdentityOptionHelper = new IdentityOptionHelper(); 
 
-            services.AddIdentity<AppUser, AppRole>(setupAction=> {
-                setupAction.Password.RequireDigit = false;
-                setupAction.Password.RequiredLength = 1;
-                setupAction.Password.RequireUppercase = false;
-                setupAction.Password.RequireLowercase= false;
-                setupAction.Password.RequireNonAlphanumeric = false; 
-            }).AddEntityFrameworkStores<TodoContext>();
+            services.AddIdentity<AppUser, AppRole>(ýdentityOptionHelper.Action()).AddEntityFrameworkStores<TodoContext>(); 
 
-            services.ConfigureApplicationCookie(configure =>
-            {
-                configure.Cookie.Name = "IsTakipCookie";
-                configure.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict;
-                configure.Cookie.HttpOnly = true;
-                configure.ExpireTimeSpan = TimeSpan.FromDays(20);
-                configure.Cookie.SecurePolicy = Microsoft.AspNetCore.Http.CookieSecurePolicy.SameAsRequest;
-                configure.LoginPath = "/Home/Index";
+            services.ConfigureApplicationCookie(ýdentityOptionHelper.CookieAction());
 
-            });
+            services.AddAutoMapper(typeof(Startup));
 
-            services.AddControllersWithViews();
+            services.AddTransient<IValidator<AciliyetInsertDto>, AciliyetInsertValidator>();
+            services.AddTransient<IValidator<AciliyetUpdateDto>, AciliyetUpdateValidator>();
+            services.AddTransient<IValidator<AppUserListViewDto>, AppUserListViewValidator>();
+            services.AddTransient<IValidator<AppUserSignInDto>, AppUserSignInValidator>();
+            services.AddTransient<IValidator<AppUserViewDto>, AppUserViewValidator>();
+            services.AddTransient<IValidator<GorevInsertDto>, GorevInsertValidator>();
+            services.AddTransient<IValidator<RaporInsertViewDto>, RaporInsertValidator>(); 
+
+
+            services.AddControllersWithViews().AddFluentValidation();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

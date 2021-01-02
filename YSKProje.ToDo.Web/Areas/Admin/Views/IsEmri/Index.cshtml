@@ -1,4 +1,4 @@
-﻿@model List<GorevListAllViewModel>
+﻿@model List<GorevListAllViewDto>
 @if (Model.Count > 0)
 {
     <table class="table table-hover table-bordered table-sm mt-2">
@@ -9,7 +9,7 @@
             <th>Aciliyet</th>
             <th>Rapor Sayısı</th>
         </tr>
-        @foreach (GorevListAllViewModel item in Model)
+        @foreach (GorevListAllViewDto item in Model)
         {
             <tr>
                 <td>@item.Ad</td> 

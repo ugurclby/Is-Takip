@@ -31,7 +31,7 @@ namespace YSKProje.ToDo.Web.Areas.Member.Controllers
         public async Task<IActionResult> Index()
         {
             TempData["Active"] = "IsEmri";
-            var user = _userManager.FindByNameAsync(User.Identity.Name).Result;
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
             var gorevler = _gorevService.GetirTumTablolarla(x => x.AppUserId == user.Id && !x.Durum);
 
             List<GorevListAllViewModel> gorevListAllViewModels = new List<GorevListAllViewModel>();
