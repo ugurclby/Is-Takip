@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using YSKProje.ToDo.Entities.Concrete;
 
 namespace YSKProje.ToDo.DTO.DTOs.RaporDTOs
 {
@@ -16,6 +17,6 @@ namespace YSKProje.ToDo.DTO.DTOs.RaporDTOs
         public string Detay { get; set; }
 
         public int GorevId { get; set; }
-        //public Gorev Gorev { get; set; }
+        public Gorev Gorev { get; set; }
     }
 }

@@ -7,30 +7,30 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using YSKProje.ToDo.Business.Interfaces;
 using YSKProje.ToDo.Entities.Concrete;
+using YSKProje.ToDo.Web.BaseControllers;
+using YSKProje.ToDo.Web.StringInfo;
 
 namespace YSKProje.ToDo.Web.Areas.Member.Controllers
 {
-    [Authorize(Roles = "Member")]
-    [Area("Member")]
-    public class HomeController : Controller
+    [Area(AreaInfo.Member)]
+    [Authorize(Roles = RoleInfo.Member)]
+    public class HomeController : BaseIdentityController
     {
-        private readonly IRaporService _raporService;
-        private readonly UserManager<AppUser> _userManager;
+        private readonly IRaporService _raporService; 
         private readonly IGorevService _gorevService;
         private readonly IBildirimService _bildirimService;
 
-        public HomeController(IRaporService raporService, UserManager<AppUser> userManager, IGorevService gorevService, IBildirimService bildirimService)
+        public HomeController(IRaporService raporService, UserManager<AppUser> userManager, IGorevService gorevService, IBildirimService bildirimService):base(userManager)
         {
-            _raporService = raporService;
-            _userManager = userManager;
+            _raporService = raporService; 
             _gorevService = gorevService;
             _bildirimService = bildirimService;
         }
         public async Task<IActionResult> Index()
         {
-            TempData["Active"] = "Anasayfa";
+            TempData["Active"] = MenuInfo.Anasayfa;
 
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var user = await GetirUserManager();
 
             ViewBag.RaporSayisi =  _raporService.GetirRaporSayisiileAppUserId(user.Id); 
 

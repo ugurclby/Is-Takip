@@ -1,9 +1,6 @@
 ﻿
-@model AppUserListViewModel
-@{
-    ViewData["Title"] = "Index";
-    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
-}
+@model AppUserListViewDto
+ 
 
 @if (TempData["message"] != null)
 {
@@ -18,17 +15,17 @@
 <form asp-action="Index" method="post" class="w-75 mx-auto p-3" enctype="multipart/form-data">
     <input type="hidden" asp-for="@Model.Id" />
     <div class="form-group">
-        <label asp-for="@Model.Name"></label>
+        <label asp-for="@Model.Name">Ad</label>
         <span asp-validation-for="@Model.Name" class="text-danger"></span>
         <input asp-for="@Model.Name" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="@Model.SurName"></label>
+        <label asp-for="@Model.SurName">Soyad</label>
         <span asp-validation-for="@Model.SurName" class="text-danger"></span>
         <input asp-for="@Model.SurName" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="@Model.EMail"></label>
+        <label asp-for="@Model.EMail">EMail</label>
         <span asp-validation-for="@Model.EMail" class="text-danger"></span>
         <input asp-for="@Model.EMail" class="form-control" />
     </div>
@@ -75,9 +72,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#Resim").change(function (e) {
-
-
+            $("#Resim").change(function (e) { 
                 $("#alanOnizleme").show();
                 $("#resimOnizleme").attr('src', URL.createObjectURL(e.target.files[0]));
             });

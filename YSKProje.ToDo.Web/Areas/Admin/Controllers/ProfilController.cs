@@ -11,24 +11,24 @@ using Microsoft.AspNetCore.Mvc;
 using YSKProje.ToDo.DTO.DTOs.AppUserDtos;
 using YSKProje.ToDo.Entities.Concrete;
 using YSKProje.ToDo.Web.Areas.Admin.Models;
+using YSKProje.ToDo.Web.BaseControllers;
+using YSKProje.ToDo.Web.StringInfo;
 
 namespace YSKProje.ToDo.Web.Areas.Admin.Controllers
 {
-    [Area("Admin")]
-    [Authorize(Roles = "Admin")]
-    public class ProfilController : Controller
-    {
-        private readonly UserManager<AppUser> _userManager;
+    [Area(AreaInfo.Admin)]
+    [Authorize(Roles = RoleInfo.Admin)]
+    public class ProfilController : BaseIdentityController
+    { 
         private readonly IMapper _mapper;
-        public ProfilController(UserManager<AppUser> userManager, IMapper mapper)
-        {
-            _userManager = userManager;
+        public ProfilController(UserManager<AppUser> userManager, IMapper mapper):base(userManager)
+        { 
             _mapper = mapper;
         }
         public async Task<IActionResult> Index()
         {
-            TempData["Active"] = "Profil";
-            var appUser = await _userManager.FindByNameAsync(User.Identity.Name);
+            TempData["Active"] = MenuInfo.Profil;
+            var appUser = await GetirUserManager();
             //AppUserListViewModel model = new AppUserListViewModel();
             //model.Id = appUser.Id;
             //model.Name = appUser.Name;
@@ -42,7 +42,7 @@ namespace YSKProje.ToDo.Web.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(AppUserListViewDto model, IFormFile resim)
         {
-            TempData["Active"] = "Profil";
+            TempData["Active"] = MenuInfo.Profil;
             if (ModelState.IsValid)
             {
                 var guncellencekKullanici = _userManager.Users.FirstOrDefault(I => I.Id == model.Id);

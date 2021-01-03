@@ -1,4 +1,4 @@
-﻿@model RaporAddViewModel
+﻿@model RaporInsertViewDto
  
 <form class="w-75 mx-auto p-3" method="post" asp-action="RaporEkle">
     <div class="card text-white bg-primary my-3">
@@ -11,12 +11,12 @@
     
     <input type="hidden" asp-for="@Model.GorevId"/>
     <div class="form-group">
-        <label asp-for="@Model.Tanim"></label>
+        <label asp-for="@Model.Tanim">Tanım</label>
         <span asp-validation-for="@Model.Tanim" class="text-danger"></span>
         <input asp-for="@Model.Tanim" type="text" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="@Model.Detay"></label>
+        <label asp-for="@Model.Detay">Detay</label>
         <span asp-validation-for="@Model.Detay" class="text-danger"></span>
         <textarea asp-for="@Model.Detay" type="text" class="form-control"></textarea>
     </div>

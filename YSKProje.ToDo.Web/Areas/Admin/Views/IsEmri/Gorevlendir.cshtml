@@ -1,4 +1,4 @@
-﻿@model GorevListAllViewModel
+﻿@model GorevListAllViewDto
 @if (Model.Raporlar.Count > 0)
 {
     <a asp-action="ExcelAktar" asp-route-id="@Model.Id" target="_blank" class="btn btn-primary btn-sm mt-2 float-right"><i class="far fa-file-excel mr-2"></i> Excele Aktar</a>

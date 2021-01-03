@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.Language;
@@ -11,10 +12,12 @@ using YSKProje.ToDo.Business.Interfaces;
 using YSKProje.ToDo.DTO.DTOs.GorevDTOs;
 using YSKProje.ToDo.Entities.Concrete;
 using YSKProje.ToDo.Web.Areas.Admin.Models;
+using YSKProje.ToDo.Web.StringInfo;
 
 namespace YSKProje.ToDo.Web.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area(AreaInfo.Admin)]
+    [Authorize(Roles = RoleInfo.Admin)]
     public class GorevController : Controller
     {
         private readonly IGorevService _gorevService;
@@ -29,7 +32,7 @@ namespace YSKProje.ToDo.Web.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            TempData["Active"] = "Gorev";
+            TempData["Active"] = MenuInfo.Gorev;
             //List<Gorev> gorevs= _gorevService.GetirAciliyetİleTamamlanmayan();
             //List<GorevListViewModel> gorevListViewModel = new List<GorevListViewModel>();
             //foreach (var item in gorevs)
@@ -54,13 +57,14 @@ namespace YSKProje.ToDo.Web.Areas.Admin.Controllers
         }
         public IActionResult EkleGorev()
         {
-            TempData["Active"] = "Gorev";
+            TempData["Active"] = MenuInfo.Gorev;
             ViewBag.Aciliyetler = new SelectList(_aciliyetService.GetirHepsi(),"Id","Tanim");
             return View(new GorevInsertDto());
         }
         [HttpPost]
         public IActionResult EkleGorev(GorevInsertDto gorevModel)
         {
+            TempData["Active"] = MenuInfo.Gorev;
             if (ModelState.IsValid)
             {
                 _gorevService.Kaydet(new Gorev() {
@@ -70,12 +74,12 @@ namespace YSKProje.ToDo.Web.Areas.Admin.Controllers
                 });
                 return RedirectToAction("Index");
             }
-             
+            ViewBag.Aciliyetler = new SelectList(_aciliyetService.GetirHepsi(), "Id", "Tanim");
             return View(gorevModel);
         }
         public IActionResult GuncelleGorev(int id)
         {
-            TempData["Active"] = "Gorev";
+            TempData["Active"] = MenuInfo.Gorev;
             var gorevler= _gorevService.GetirIdile(id);
             ViewBag.Aciliyetler = new SelectList(_aciliyetService.GetirHepsi(), "Id", "Tanim", gorevler.AciliyetId);
             //GorevUpdateModel gorevUpdateModel = new GorevUpdateModel()
@@ -93,6 +97,7 @@ namespace YSKProje.ToDo.Web.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult GuncelleGorev(GorevUpdateDto gorevModel)
         {
+            TempData["Active"] = MenuInfo.Gorev;
             if (ModelState.IsValid)
             {
                 _gorevService.Guncelle(new Gorev()

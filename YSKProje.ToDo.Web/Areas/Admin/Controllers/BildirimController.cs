@@ -10,27 +10,27 @@ using YSKProje.ToDo.Business.Interfaces;
 using YSKProje.ToDo.DTO.DTOs.BildirimDTOs;
 using YSKProje.ToDo.Entities.Concrete;
 using YSKProje.ToDo.Web.Areas.Admin.Models;
+using YSKProje.ToDo.Web.BaseControllers;
+using YSKProje.ToDo.Web.StringInfo;
 
 namespace YSKProje.ToDo.Web.Areas.Admin.Controllers
 {
-    [Area("Admin")]
-    [Authorize(Roles ="Admin")]
-    public class BildirimController : Controller
+    [Area(AreaInfo.Admin)]
+    [Authorize(Roles = RoleInfo.Admin)]
+    public class BildirimController : BaseIdentityController
     {
-        private readonly IBildirimService _bildirimService;
-        private readonly UserManager<AppUser> _userManager;
+        private readonly IBildirimService _bildirimService; 
         private readonly IMapper _mapper;
-        public BildirimController(IBildirimService bildirimService, UserManager<AppUser> userManager, IMapper mapper)
+        public BildirimController(IBildirimService bildirimService, UserManager<AppUser> userManager, IMapper mapper):base(userManager)
         {
-            _bildirimService = bildirimService;
-            _userManager = userManager;
+            _bildirimService = bildirimService; 
             _mapper = mapper;
         }
         public async Task<IActionResult> Index()
         {
-            TempData["Active"] = "Bildirim";
+            TempData["Active"] = MenuInfo.Bildirim;
 
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var user = await GetirUserManager();
 
             //var bildirimList = _bildirimService.OkunmamisBildirim(user.Id);
 
@@ -53,7 +53,7 @@ namespace YSKProje.ToDo.Web.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Index(int bildirimId)
         {
-            TempData["Active"] = "Bildirim";
+            TempData["Active"] = MenuInfo.Bildirim;
             if (ModelState.IsValid)
             {
                 var bildirim = _bildirimService.GetirIdile(bildirimId);

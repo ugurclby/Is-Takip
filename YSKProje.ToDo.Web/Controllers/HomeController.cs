@@ -3,27 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using YSKProje.ToDo.Business.Interfaces;
 using YSKProje.ToDo.DTO.DTOs.AppUserDtos;
 using YSKProje.ToDo.Entities.Concrete;
+using YSKProje.ToDo.Web.BaseControllers;
 using YSKProje.ToDo.Web.Models;
 
 namespace YSKProje.ToDo.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseIdentityController
     {
-        IGorevService _gorevService;
-        UserManager<AppUser> _userManager;
+        IGorevService _gorevService; 
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IMapper _mapper;
-        public HomeController(IGorevService gorevService, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IMapper mapper)
+        private readonly ICustomLogger _customLogger;
+        public HomeController(IGorevService gorevService, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IMapper mapper, ICustomLogger customLogger) :base(userManager)
         {
-            _gorevService = gorevService;
-            _userManager = userManager;
+            _gorevService = gorevService; 
             _signInManager = signInManager;
             _mapper = mapper;
+            _customLogger = customLogger;
         }
         public IActionResult Index()
         {
@@ -101,5 +103,26 @@ namespace YSKProje.ToDo.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult ErrorPage (int? code)
+        {
+            if (code==404)
+            {
+                ViewBag.Code = 404;
+                ViewBag.Message = "Sayfa Bulunamadı..!";
+            }
+            return View();
+        }
+        public IActionResult ProductError()
+        {
+            var exceptionHandler = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+            _customLogger.WriteLog($"Hata oluştu\n Hatanın Oluştuğu Dizin :{exceptionHandler.Path}\n Hata Mesajı :{exceptionHandler.Error.Message}\n Hata Stack Trace :{exceptionHandler.Error.StackTrace}");
+              
+            return View();
+        }
+        
+        public void Hata()
+        {
+            throw new Exception("Hata Var ");
+        }
     }
 }

@@ -8,10 +8,11 @@ using YSKProje.ToDo.Business.Interfaces;
 using YSKProje.ToDo.DTO.DTOs.AciliyetDTOs;
 using YSKProje.ToDo.Entities.Concrete;
 using YSKProje.ToDo.Web.Areas.Admin.Models;
+using YSKProje.ToDo.Web.StringInfo;
 
 namespace YSKProje.ToDo.Web.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area(AreaInfo.Admin)]
     public class AciliyetController : Controller
     {
         private readonly IAciliyetService _aciliyetService;
@@ -24,7 +25,7 @@ namespace YSKProje.ToDo.Web.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            TempData["Active"] = "Aciliyet";
+            TempData["Active"] = MenuInfo.Aciliyet;
             //List<Aciliyet> aciliyets = _aciliyetService.GetirHepsi();
             //List<AciliyetListViewModel> aciliyetListViewModel = new List<AciliyetListViewModel>();
 
@@ -46,7 +47,7 @@ namespace YSKProje.ToDo.Web.Areas.Admin.Controllers
         }
         public IActionResult AciliyetEkle ()
         {
-            TempData["Active"] = "Aciliyet";
+            TempData["Active"] = MenuInfo.Aciliyet; 
             return View(new AciliyetInsertDto());
         }
         [HttpPost]
@@ -65,7 +66,7 @@ namespace YSKProje.ToDo.Web.Areas.Admin.Controllers
 
         public IActionResult GuncelleAciliyet(int id)
         {
-            TempData["Active"] = "Aciliyet";
+            TempData["Active"] = MenuInfo.Aciliyet; 
             //Aciliyet aciliyet = _aciliyetService.GetirIdile(id);
             //AciliyetUpdateModel aciliyetUpdateModel = new AciliyetUpdateModel()
             //{

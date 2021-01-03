@@ -11,31 +11,31 @@ using YSKProje.ToDo.DTO.DTOs.AppUserDtos;
 using YSKProje.ToDo.DTO.DTOs.GorevDTOs;
 using YSKProje.ToDo.Entities.Concrete;
 using YSKProje.ToDo.Web.Areas.Admin.Models;
+using YSKProje.ToDo.Web.BaseControllers;
+using YSKProje.ToDo.Web.StringInfo;
 
 namespace YSKProje.ToDo.Web.Areas.Admin.Controllers
 {
-    [Area("Admin")]
-    [Authorize(Roles = "Admin")]
-    public class IsEmriController : Controller
+    [Area(AreaInfo.Admin)]
+    [Authorize(Roles = RoleInfo.Admin)]
+    public class IsEmriController : BaseIdentityController
     {
         IAppUserService _appUserService;
-        IGorevService _gorevService;
-        UserManager<AppUser> _userManager;
+        IGorevService _gorevService; 
         IDocumentService _documentService;
         IBildirimService _bildirimService;
         private readonly IMapper _mapper;
-        public IsEmriController(IAppUserService appUserService, IGorevService gorevService, UserManager<AppUser> userManager, IDocumentService documentService, IBildirimService bildirimService, IMapper mapper)
+        public IsEmriController(IAppUserService appUserService, IGorevService gorevService, UserManager<AppUser> userManager, IDocumentService documentService, IBildirimService bildirimService, IMapper mapper):base(userManager)
         {
             _appUserService = appUserService;
-            _gorevService = gorevService;
-            _userManager = userManager;
+            _gorevService = gorevService; 
             _documentService = documentService;
             _bildirimService = bildirimService;
             _mapper = mapper;
         }
         public IActionResult Index()
         {
-            TempData["Active"] = "IsEmri";
+            TempData["Active"] = MenuInfo.IsEmri;
 
             List<Gorev> gorevler= _gorevService.GetirTumTablolarla();
 
@@ -62,7 +62,7 @@ namespace YSKProje.ToDo.Web.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult AtaPersonel(int id,string s,int sayfa=1)
         {
-            TempData["Active"] = "IsEmri";
+            TempData["Active"] = MenuInfo.IsEmri; 
             ViewBag.AktifSayfa = sayfa;
             int toplamSayfa; 
             
@@ -107,7 +107,7 @@ namespace YSKProje.ToDo.Web.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult AtaPersonel(PersonelGorevlendirDto personelGorevlendirModel)
         {
-            TempData["Active"] = "IsEmri";
+            TempData["Active"] = MenuInfo.IsEmri;
             var guncellenecekGorev= _gorevService.GetirIdile(personelGorevlendirModel.GorevId);
             guncellenecekGorev.AppUserId = personelGorevlendirModel.PersonelId;
             _gorevService.Guncelle(guncellenecekGorev);
@@ -123,7 +123,7 @@ namespace YSKProje.ToDo.Web.Areas.Admin.Controllers
 
         public IActionResult PersonelGorevlendir(PersonelGorevlendirDto personelGorevlendirModel)
         {
-            TempData["Active"] = "IsEmri";
+            TempData["Active"] = MenuInfo.IsEmri;
             PersonelGorevListViewDto personelGorevListViewModel = new PersonelGorevListViewDto();
 
             var user= _userManager.Users.FirstOrDefault(x => x.Id == personelGorevlendirModel.PersonelId);
@@ -157,13 +157,14 @@ namespace YSKProje.ToDo.Web.Areas.Admin.Controllers
 
         public IActionResult Gorevlendir(int id)
         {
-            TempData["Active"] = "IsEmri"; 
-            
+            TempData["Active"] = MenuInfo.IsEmri;
+
             return View(GetGorevListAllViewModel(id));
         }
 
         public IActionResult ExcelAktar(int id)
         {
+            TempData["Active"] = MenuInfo.IsEmri;
             var sonuc = GetGorevListAllViewModel(id);
             var excel= _documentService.ExcelAktar(sonuc.Raporlar);
 
@@ -173,6 +174,7 @@ namespace YSKProje.ToDo.Web.Areas.Admin.Controllers
 
         public IActionResult PdfAktar(int id)
         {
+            TempData["Active"] = MenuInfo.IsEmri;
             var sonuc = GetGorevListAllViewModel(id);
             var excel = _documentService.PdfAktar(sonuc.Raporlar);
 
@@ -181,7 +183,8 @@ namespace YSKProje.ToDo.Web.Areas.Admin.Controllers
         }
 
         public GorevListAllViewDto GetGorevListAllViewModel(int gorevId)
-        {  
+        {
+            TempData["Active"] = MenuInfo.IsEmri;
             var sonuc = _gorevService.RaporGetirGorevIdile(gorevId);
 
             //GorevListAllViewModel gorevListAllViewModel = new GorevListAllViewModel()
